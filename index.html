@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Northstar Care | Support Center Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── DARK THEME (default) ── */
+    :root {
+      --bg:              #04070f;
+      --surface:         rgba(8,16,40,0.7);
+      --surface-pod:     rgba(4,7,15,0.5);
+      --green:           #00e676;
+      --amber:           #ffab00;
+      --text:            #d0e4ff;
+      --muted:           #3a5880;
+      --card-name-color: #c8dff5;
+      --card-name-shadow:0 0 12px rgba(77,150,255,0.5),0 0 28px rgba(77,150,255,0.2);
+      --icon-voice:      #4da6ff;
+      --icon-chat:       #ffab00;
+      --icon-email:      #00e676;
+      --stat-label-color:#c8dff5;
+      --stat-unit-color: #c8dff5;
+      --stat-today-label:#8fa8c8;
+      --stat-today-sep:  rgba(255,255,255,0.1);
+      --card-sep:        rgba(255,255,255,0.18);
+      --pod-label-text:  #fff;
+      --brand-name-color:#fff;
+      --clock-color:     #d0e4ff;
+      --header-line:     linear-gradient(90deg,rgba(58,128,255,0.25),rgba(58,128,255,0.05));
+      --brand-shadow:    0 0 30px rgba(58,128,255,0.35);
+      --btn-all-bg:      rgba(26,90,255,0.1);
+      --btn-all-border:  rgba(58,150,255,0.55);
+      --btn-all-color:   #7ec4ff;
+      --btn-all-shadow:  0 0 18px rgba(26,100,255,0.2),inset 0 0 12px rgba(26,100,255,0.05);
+      --btn-all-hbg:     rgba(26,90,255,0.22);
+      --btn-all-hborder: rgba(80,170,255,0.8);
+      --btn-all-hcolor:  #b8dcff;
+      --btn-all-hshadow: 0 0 28px rgba(26,100,255,0.4),inset 0 0 16px rgba(26,100,255,0.1);
+      --pod-row-bg:      rgba(4,7,15,0.5);
+      --pod-label-bg:    rgba(4,7,15,0.7);
+      --pod-label-mix:   10%;
+      --panel-bg:        rgba(4,7,15,0.5);
+      --panel-hdr-base:  rgba(4,7,15,0.7);
+      --panel-hdr-mix:   8%;
+      --panel-title:     #fff;
+      --summary-row-border: rgba(58,128,255,0.75);
+      --summary-row-shadow: 0 0 28px rgba(58,128,255,0.22),0 0 56px rgba(58,128,255,0.08);
+      --summary-row-bg:  rgba(4,7,15,0.5);
+      --summary-lbl-bg:  rgba(58,128,255,0.07);
+      --summary-lbl-bdr: rgba(58,128,255,0.22);
+      --summary-title:   #4da6ff;
+      --summary-tshadow: 0 0 16px rgba(77,166,255,0.55);
+      --summary-sub:     #8fb0d9;
+      --summary-ch-bg:   rgba(8,16,40,0.7);
+      --summary-ch-sep:  rgba(255,255,255,0.22);
+      --summary-ch-title:#fff;
+      --summary-stat-val:#fff;
+      --summary-stat-lbl:#7a9ec4;
+      --summary-stat-sep:rgba(255,255,255,0.04);
+      --progress-track:  rgba(255,255,255,0.07);
+      --progress-fill-h: 1px;
+      --progress-top:    rgba(255,255,255,0.04);
+      --progress-lbl:    #3a5880;
+      --toast-bg:        rgba(8,16,40,0.92);
+      --toast-border:    rgba(58,128,255,0.3);
+      --toast-color:     #d0e4ff;
+      --toast-err:       rgba(255,85,85,0.5);
+      --auth-bg:         #04070f;
+      --auth-h1:         #fff;
+      --auth-sub:        #60a5fa;
+      --auth-p:          #94a3b8;
+      --scrollbar:       rgba(58,128,255,0.2);
+      --crit1:rgba(255,40,40,0.26); --crit2:rgba(255,40,40,0.13); --crit3:rgba(255,40,40,0.06);
+      --crit1b:rgba(255,40,40,0.07); --crit2b:rgba(255,40,40,0.03); --crit3b:rgba(255,40,40,0.01);
+      --warn1:rgba(255,171,0,0.23); --warn2:rgba(255,171,0,0.11);
+      --warn1b:rgba(255,171,0,0.06); --warn2b:rgba(255,171,0,0.03);
+      --alert-p1:#ff6666; --alert-p2:#ff9999;
+      --alert-pp1:#ff6666; --alert-pp2:#ffaaaa;
+      --c-wait-0:#e2e8f0; --c-wait-1:#ffcc00; --c-wait-2:#ff4444;
+      --c-ag1:#4dff91; --c-ag2:#1aff6e; --c-ag3:#00f060; --c-agn:#00e676;
+      --c-agent-zero:#ff4444; --agpulse:rgba(255,68,68,0.9);
+      --c-lw:#d9deff; --c-offered:#c8dff5; --c-abandoned:#ffab40;
+      --badge-warn-c:#ffab00; --badge-warn-b:rgba(255,171,0,0.55); --badge-warn-bg:rgba(255,171,0,0.10);
+      --badge-crit-c:#ff5555; --badge-crit-b:rgba(255,85,85,0.5);  --badge-crit-bg:rgba(255,85,85,0.08);
+      --badge-noag-c:#ff4444; --badge-noag-b:rgba(255,68,68,0.6);  --badge-noag-bg:rgba(255,68,68,0.1);
+      --sl-good-c:#00e676; --sl-good-b:rgba(0,230,118,0.45); --sl-good-bg:rgba(0,230,118,0.08);
+      --sl-warn-c:#ffab00; --sl-warn-b:rgba(255,171,0,0.45);  --sl-warn-bg:rgba(255,171,0,0.08);
+      --sl-crit-c:#ff5555; --sl-crit-b:rgba(255,85,85,0.45);  --sl-crit-bg:rgba(255,85,85,0.08);
+      --sl-none-c:#3a5880; --sl-none-b:rgba(58,128,255,0.18); --sl-none-bg:transparent;
+      --pill-live-c:#00e676; --pill-live-b:rgba(0,230,118,0.45); --pill-live-bg:rgba(0,230,118,0.07); --pill-live-s:0 0 20px rgba(0,230,118,0.2);
+      --pill-off-b: rgba(58,128,255,0.2);
+      --pill-err-c:#ff5555; --pill-err-b:rgba(255,85,85,0.45); --pill-err-bg:rgba(255,85,85,0.07);
+      --font-h: 'Rajdhani', sans-serif;
+      --font-b: 'Exo 2', sans-serif;
+
+      /* Agent Status swatch palette (dark theme: neon, with glow) */
+      --swatch-onqueue:       #4fd4e8;
+      --swatch-onqueue-glow:  0 0 8px rgba(79,212,232,0.8);
+      --swatch-offqueue:      #ff4d5a;
+      --swatch-offqueue-glow: 0 0 8px rgba(255,77,90,0.8);
+      --swatch-available:     #00e676;
+      --swatch-warn:          #ffab00;
+      --swatch-crit:          #ff4d5a;
+      --swatch-glow:          0 0 6px currentColor;
+    }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg:              #f4f6fb;
+      --surface:         #fff;
+      --surface-pod:     #fff;
+      --green:           #0a9e5c;
+      --amber:           #c47900;
+      --text:            #1a2e4a;
+      --muted:           #7a90aa;
+      --card-name-color: #1e3a5f;
+      --card-name-shadow:none;
+      --icon-voice:      #2563eb;
+      --icon-chat:       #c47900;
+      --icon-email:      #0a9e5c;
+      --stat-label-color:#4a6080;
+      --stat-unit-color: #4a6080;
+      --stat-today-label:#7a90aa;
+      --stat-today-sep:  rgba(0,0,0,0.08);
+      --card-sep:        rgba(0,0,0,0.08);
+      --pod-label-text:  #1a2e4a;
+      --brand-name-color:#1a2e4a;
+      --clock-color:     #1a2e4a;
+      --header-line:     linear-gradient(90deg,rgba(58,128,255,0.18),rgba(58,128,255,0.04));
+      --brand-shadow:    0 2px 12px rgba(37,99,235,0.18);
+      --btn-all-bg:      rgba(37,99,235,0.07);
+      --btn-all-border:  rgba(37,99,235,0.4);
+      --btn-all-color:   #2563eb;
+      --btn-all-shadow:  0 1px 8px rgba(37,99,235,0.1),inset 0 0 8px rgba(37,99,235,0.03);
+      --btn-all-hbg:     rgba(37,99,235,0.13);
+      --btn-all-hborder: rgba(37,99,235,0.65);
+      --btn-all-hcolor:  #1d4ed8;
+      --btn-all-hshadow: 0 2px 16px rgba(37,99,235,0.2),inset 0 0 10px rgba(37,99,235,0.06);
+      --pod-row-bg:      #fff;
+      --pod-label-bg:    #f0f4f8;
+      --pod-label-mix:   12%;
+      --panel-bg:        #fff;
+      --panel-hdr-base:  #f0f4f8;
+      --panel-hdr-mix:   10%;
+      --panel-title:     #1a2e4a;
+      --summary-row-border: rgba(37,99,235,0.3);
+      --summary-row-shadow: 0 2px 12px rgba(37,99,235,0.1),0 0 30px rgba(37,99,235,0.04);
+      --summary-row-bg:  #fff;
+      --summary-lbl-bg:  rgba(37,99,235,0.05);
+      --summary-lbl-bdr: rgba(37,99,235,0.15);
+      --summary-title:   #2563eb;
+      --summary-tshadow: none;
+      --summary-sub:     #425c7a;
+      --summary-ch-bg:   #fff;
+      --summary-ch-sep:  rgba(0,0,0,0.07);
+      --summary-ch-title:#1a2e4a;
+      --summary-stat-val:#1a2e4a;
+      --summary-stat-lbl:#7a90aa;
+      --summary-stat-sep:rgba(0,0,0,0.05);
+      --progress-track:  rgba(0,0,0,0.08);
+      --progress-fill-h: 3px;
+      --progress-top:    rgba(0,0,0,0.05);
+      --progress-lbl:    #7a90aa;
+      --toast-bg:        rgba(255,255,255,0.96);
+      --toast-border:    rgba(37,99,235,0.2);
+      --toast-color:     #1a2e4a;
+      --toast-err:       rgba(220,38,38,0.4);
+      --auth-bg:         #f4f6fb;
+      --auth-h1:         #1a2e4a;
+      --auth-sub:        #2563eb;
+      --auth-p:          #4a6080;
+      --scrollbar:       rgba(37,99,235,0.15);
+      --crit1:rgba(220,38,38,0.14); --crit2:rgba(220,38,38,0.07); --crit3:rgba(220,38,38,0.03);
+      --crit1b:rgba(220,38,38,0.04); --crit2b:rgba(220,38,38,0.02); --crit3b:rgba(220,38,38,0.01);
+      --warn1:rgba(196,121,0,0.13); --warn2:rgba(196,121,0,0.06);
+      --warn1b:rgba(196,121,0,0.04); --warn2b:rgba(196,121,0,0.02);
+      --alert-p1:#b91c1c; --alert-p2:#dc2626;
+      --alert-pp1:#b91c1c; --alert-pp2:#dc2626;
+      --c-wait-0:#1a2e4a; --c-wait-1:#c47900; --c-wait-2:#b91c1c;
+      --c-ag1:#0a7a46; --c-ag2:#0a8f52; --c-ag3:#0a9e5c; --c-agn:#059669;
+      --c-agent-zero:#b91c1c; --agpulse:rgba(185,28,28,0.7);
+      --c-lw:#2d4a7a; --c-offered:#3a5a8a; --c-abandoned:#c47900;
+      --badge-warn-c:#92580a; --badge-warn-b:rgba(146,88,10,0.45); --badge-warn-bg:rgba(196,121,0,0.10);
+      --badge-crit-c:#c0392b; --badge-crit-b:rgba(192,57,43,0.5);  --badge-crit-bg:rgba(220,38,38,0.08);
+      --badge-noag-c:#b91c1c; --badge-noag-b:rgba(185,28,28,0.6);  --badge-noag-bg:rgba(220,38,38,0.08);
+      --sl-good-c:#0a7a46; --sl-good-b:rgba(10,122,70,0.4); --sl-good-bg:rgba(10,158,92,0.08);
+      --sl-warn-c:#92580a; --sl-warn-b:rgba(146,88,10,0.4);  --sl-warn-bg:rgba(196,121,0,0.08);
+      --sl-crit-c:#b91c1c; --sl-crit-b:rgba(185,28,28,0.4);  --sl-crit-bg:rgba(220,38,38,0.07);
+      --sl-none-c:#7a90aa; --sl-none-b:rgba(37,99,235,0.15); --sl-none-bg:transparent;
+      --pill-live-c:#0a9e5c; --pill-live-b:rgba(10,158,92,0.45); --pill-live-bg:rgba(10,158,92,0.08); --pill-live-s:0 0 16px rgba(10,158,92,0.15);
+      --pill-off-b: rgba(37,99,235,0.2);
+      --pill-err-c:#dc2626; --pill-err-b:rgba(220,38,38,0.45); --pill-err-bg:rgba(220,38,38,0.07);
+
+      /* Agent Status swatch palette (light theme: subdued, no glow) */
+      --swatch-onqueue:       #0891b2;
+      --swatch-onqueue-glow:  none;
+      --swatch-offqueue:      #b91c1c;
+      --swatch-offqueue-glow: none;
+      --swatch-available:     #0a8f52;
+      --swatch-warn:          #b07209;
+      --swatch-crit:          #b91c1c;
+      --swatch-glow:          none;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg); font-family: var(--font-b); min-height: 100vh;
+    }
+    .stars {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      [data-theme="light"] & { display:none; }
+      background-image:
+        radial-gradient(1px 1px at 8% 18%,  rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 23% 62%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 38% 9%,  rgba(200,220,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 57% 78%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 33%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 84% 14%, rgba(200,220,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 14% 87%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 33% 41%, rgba(180,210,255,0.55) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 76% 57%, rgba(180,210,255,0.4) 0%, transparent 100%);
+    }
+    [data-theme="light"] .stars { display: none; }
+    [data-theme="light"] body { background-image: radial-gradient(ellipse 120% 80% at 50% -10%, rgba(58,130,246,0.06) 0%, transparent 60%); }
+
+    /* ── WRAPPER & HEADER ── */
+    .wrapper {
+      position: relative; z-index: 1;
+      max-width: 1600px; margin: 0 auto;
+      padding: clamp(0.4rem,0.8vw,0.8rem) clamp(0.5rem,1.2vw,1.2rem) 1rem;
+    }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: clamp(0.3rem,0.6vw,0.6rem); flex-wrap: wrap; gap: 0.5rem;
+    }
+    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .brand-icon {
+      width: clamp(32px,4vw,48px); height: clamp(32px,4vw,48px);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--brand-shadow); overflow: hidden; flex-shrink: 0;
+    }
+    .brand-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .brand-name { font-family: var(--font-h); font-size: clamp(1rem,2vw,1.6rem); font-weight: 700; color: var(--brand-name-color); letter-spacing: 0.02em; line-height: 1; }
+    .brand-sub  { font-size: clamp(0.5rem,1vw,0.65rem); font-weight: 500; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+    .header-line { flex: 1; height: 1px; margin: 0 1rem; background: var(--header-line); min-width: 40px; }
+    .header-right { display: flex; align-items: center; gap: clamp(0.75rem,2vw,1.5rem); flex-wrap: wrap; }
+    .clock { font-family: var(--font-h); font-size: clamp(1rem,2vw,1.5rem); font-weight: 600; color: var(--clock-color); letter-spacing: 0.05em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .live-pill {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-h); font-size: clamp(0.55rem,1vw,0.72rem); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 20px; border: 1.5px solid; transition: all 0.4s; white-space: nowrap;
+    }
+    .live-pill.live    { color: var(--pill-live-c); border-color: var(--pill-live-b); background: var(--pill-live-bg); box-shadow: var(--pill-live-s); }
+    .live-pill.offline { color: var(--muted); border-color: var(--pill-off-b); background: transparent; }
+    .live-pill.error   { color: var(--pill-err-c); border-color: var(--pill-err-b); background: var(--pill-err-bg); }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .live-dot.pulse { animation: livepulse 1.8s ease-in-out infinite; }
+    @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
+
+    /* ── VIEW ALL BUTTON ── */
+    .view-all-bar {
+      display: flex; justify-content: center;
+      margin-bottom: clamp(0.4rem,0.8vw,0.7rem);
+    }
+    .btn-view-all {
+      font-family: var(--font-h); font-size: clamp(0.7rem,1.1vw,0.9rem); font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.45rem 1.6rem; border-radius: 8px; border: 1.5px solid var(--btn-all-border);
+      background: var(--btn-all-bg); color: var(--btn-all-color);
+      box-shadow: var(--btn-all-shadow);
+      cursor: pointer; transition: all 0.2s; white-space: nowrap; text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-view-all:hover {
+      background: var(--btn-all-hbg); border-color: var(--btn-all-hborder);
+      color: var(--btn-all-hcolor); box-shadow: var(--btn-all-hshadow);
+      transform: translateY(-1px);
+    }
+    .btn-view-all svg { flex-shrink: 0; }
+
+    /* ── MAIN GRID: voice panels left, pods right ── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 410px 1fr;
+      gap: clamp(0.6rem,1.2vw,1.2rem);
+      align-items: stretch;
+    }
+
+    /* ── DEPARTMENT ROWS (top-header layout, matches voice panels) ── */
+    .pods-container { display: flex; flex-direction: column; gap: clamp(0.35rem,0.7vw,0.6rem); }
+    .pod-row {
+      display: flex; flex-direction: column; flex: 1;
+      border-radius: 16px; overflow: hidden;
+      border: 2px solid var(--pod-color);
+      box-shadow: 0 0 28px color-mix(in srgb, var(--pod-color) 28%, transparent),
+                  0 0 56px color-mix(in srgb, var(--pod-color) 10%, transparent);
+      background: var(--pod-row-bg);
+    }
+    /* Compact colored header bar carrying the department name */
+    .pod-header {
+      padding: clamp(0.3rem,0.6vw,0.5rem) clamp(0.5rem,1vw,0.9rem) clamp(0.2rem,0.4vw,0.35rem);
+      border-bottom: 1px solid color-mix(in srgb, var(--pod-color) 25%, transparent);
+      background: color-mix(in srgb, var(--pod-color) var(--pod-label-mix), var(--pod-label-bg));
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .pod-label-text {
+      font-family: var(--font-h); font-size: clamp(0.72rem,1vw,0.9rem); font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--pod-label-text);
+      text-shadow: none;
+      text-align: center; line-height: 1.2; white-space: nowrap;
+    }
+    @keyframes podAlertPulse {
+      0%,100% { color: var(--alert-p1); }
+      50%     { color: var(--alert-p2); }
+    }
+    .pod-label-text.alerting { animation: podAlertPulse 2.2s ease-in-out infinite; }
+
+    .pod-queues {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      flex: 1; min-width: 0;
+    }
+    .pod-queues > .card { border-radius: 0; border-right: 1px solid var(--card-sep); }
+    .pod-queues > .card:last-child { border-right: none; }
+
+    /* ── RIGHT VOICE PANELS ── */
+    .voice-panels { display: flex; flex-direction: column; gap: clamp(0.35rem,0.7vw,0.6rem); }
+    .voice-panel {
+      flex: 1; display: flex; flex-direction: column;
+      border-radius: 16px; overflow: hidden;
+      border: 2px solid var(--panel-color);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--panel-color) 25%, transparent),
+                  0 0 48px color-mix(in srgb, var(--panel-color) 8%, transparent);
+      background: var(--panel-bg);
+    }
+    .voice-panel-header {
+      padding: clamp(0.35rem,0.7vw,0.6rem) clamp(0.5rem,1vw,0.9rem) clamp(0.2rem,0.4vw,0.35rem);
+      border-bottom: 1px solid color-mix(in srgb, var(--panel-color) 25%, transparent);
+      background: color-mix(in srgb, var(--panel-color) var(--panel-hdr-mix), var(--panel-hdr-base));
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .voice-panel-icon { flex-shrink: 0; opacity: 0.9; }
+    .voice-panel-title {
+      font-family: var(--font-h); font-size: clamp(0.7rem,1vw,0.88rem); font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--panel-title); line-height: 1.2;
+      text-shadow: none;
+      flex: 1; text-align: center;
+    }
+    @keyframes panelAlertPulse {
+      0%,100% { color: var(--alert-pp1); }
+      50%     { color: var(--alert-pp2); }
+    }
+    .voice-panel-title.alerting { animation: panelAlertPulse 2.2s ease-in-out infinite; }
+    .voice-panel > .card { border-radius: 0; flex: 1; }
+
+    /* ── CARD ── */
+    .card {
+      overflow: hidden; position: relative;
+      background: var(--surface); backdrop-filter: blur(2px);
+      transition: background 0.3s;
+      display: flex; flex-direction: column; justify-content: flex-start;
+    }
+    /* Card alert states — soft diffuse backlit glow, no hard border lines */
+    @keyframes critglow { 0%,100%{opacity:1} 50%{opacity:0.35} }
+    @keyframes critBacklit {
+      0%,100% { box-shadow: inset 0 0 40px var(--crit1),inset 0 0 80px var(--crit2),inset 0 0 120px var(--crit3); }
+      50%     { box-shadow: inset 0 0 20px var(--crit1b),inset 0 0 50px var(--crit2b),inset 0 0 80px var(--crit3b); }
+    }
+    @keyframes warnBacklit {
+      0%,100% { box-shadow: inset 0 0 35px var(--warn1),inset 0 0 70px var(--warn2); }
+      50%     { box-shadow: inset 0 0 15px var(--warn1b),inset 0 0 40px var(--warn2b); }
+    }
+    .card.ok        { }
+    .card.warn      { animation: warnBacklit 3.5s ease-in-out infinite; }
+    .card.crit      { animation: critBacklit 3.5s ease-in-out infinite; } /* aliased — not used */
+    .card.no-agents { animation: critBacklit 3.5s ease-in-out infinite; }
+
+    /* ── CARD HEAD ── */
+    .card-head { display: flex; align-items: center; justify-content: space-between; padding: clamp(0.35rem,0.7vw,0.65rem) clamp(0.5rem,1vw,0.9rem) clamp(0.15rem,0.3vw,0.25rem); gap: 0.3rem; flex-wrap: wrap; }
+    .card-name { font-family: var(--font-h); font-size: clamp(0.7rem,1vw,0.88rem); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-name-color); display:flex; align-items:center; gap:0.4rem; white-space: nowrap; text-shadow: var(--card-name-shadow); }
+    .badge { font-family: var(--font-h); font-size: 0.55rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.16rem 0.5rem; border-radius: 20px; border: 1px solid; white-space: nowrap; flex-shrink: 0; transition: all 0.4s; }
+    .badge.warn      { color: var(--badge-warn-c); border-color: var(--badge-warn-b); background: var(--badge-warn-bg); }
+    .badge.crit      { color: var(--badge-crit-c); border-color: var(--badge-crit-b); background: var(--badge-crit-bg); }
+    .badge.no-agents { color: var(--badge-noag-c); border-color: var(--badge-noag-b); background: var(--badge-noag-bg); }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      grid-template-rows: auto auto auto;
+      align-items: end;
+      flex: 1;
+      padding-bottom: clamp(0.3rem,0.6vw,0.5rem);
+    }
+    .stat {
+      padding: clamp(0.1rem,0.3vw,0.3rem) clamp(0.15rem,0.3vw,0.3rem) 0;
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+      align-items: center;
+      text-align: center;
+    }
+    .stat.stat-today { border-left: 1px solid var(--stat-today-sep); opacity: 0.85; }
+    .stat.stat-today .stat-label { color: var(--stat-today-label); }
+    .stat-label { font-family: var(--font-h); font-size: clamp(0.48rem,0.7vw,0.62rem); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stat-label-color); display: flex; align-items: flex-end; justify-content: center; text-align: center; line-height: 1.25; padding-bottom: 0.18rem; }
+    .stat-val   { font-family: var(--font-h); font-size: clamp(1.6rem,2.2vw,2.2rem); font-weight: 700; line-height: 1; letter-spacing: -0.01em; transition: color 0.5s; display: flex; align-items: center; justify-content: center; }
+    .stat-unit  { font-size: clamp(0.48rem,0.65vw,0.58rem); color: var(--stat-unit-color); letter-spacing: 0.06em; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.18rem; }
+    @keyframes numflash { 0%{opacity:0.3;transform:scale(0.94)} 100%{opacity:1;transform:scale(1)} }
+    .stat-val.flash { animation: numflash 0.35s cubic-bezier(0.16,1,0.3,1); }
+    @keyframes agentpulse { 0%,100%{opacity:1;text-shadow:0 0 0px rgba(0,0,0,0)} 50%{opacity:0.5;text-shadow:0 0 18px var(--agpulse)} }
+    .c-agent-zero { color: var(--c-agent-zero); animation: agentpulse 3.5s ease-in-out infinite; }
+
+    /* ── CARD FOOT ── */
+    .card-foot { display: flex; align-items: center; padding: 0.15rem 0.8rem 0.2rem; font-size: 0.48rem; color: var(--muted); }
+    .foot-left { display: flex; align-items: center; gap: 0.4rem; }
+    .act-dot   { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+    .act-dot.live { background: var(--green); box-shadow: 0 0 5px rgba(0,0,0,0.2); animation: livepulse 2s ease-in-out infinite; }
+
+    /* ── AUTH ── */
+    #auth-overlay {
+      position: fixed; inset: 0; z-index: 200; background: var(--auth-bg);
+      background-image: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(37,99,235,0.07) 0%, transparent 70%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; padding: 2rem;
+    }
+    .auth-logo { width: 100px; height: 100px; margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(37,99,235,0.3)); }
+    .auth-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    #auth-overlay h1 { font-family: var(--font-h); font-size: 2.2rem; font-weight: 800; color: var(--auth-h1); letter-spacing: -0.02em; margin-bottom: 6px; }
+    .auth-subtitle { font-size: 1rem; font-weight: 500; color: var(--auth-sub); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+    #auth-overlay p { color: var(--auth-p); font-size: 0.9rem; text-align: center; max-width: 340px; line-height: 1.65; margin-bottom: 28px; }
+    .btn-auth {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff;
+      font-family: var(--font-h); font-size: 1.05rem; font-weight: 700;
+      padding: 14px 40px; border: none; border-radius: 10px; width: 100%; max-width: 340px;
+      cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 4px 24px rgba(37,99,235,0.45), 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .btn-auth:hover { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); transform: translateY(-1px); }
+    .auth-input {
+      width: 100%; max-width: 340px; margin-bottom: 12px;
+      padding: 13px 16px; border-radius: 10px;
+      border: 1px solid var(--summary-lbl-bdr);
+      background: var(--surface); color: var(--text);
+      font-family: var(--font-b); font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .auth-input::placeholder { color: var(--muted); }
+    .auth-input:focus { border-color: var(--auth-sub); box-shadow: 0 0 0 3px rgba(37,99,235,0.18); }
+    .auth-demo-note {
+      margin-top: 18px !important; margin-bottom: 0 !important;
+      font-size: 0.72rem !important; color: var(--muted) !important;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 300;
+      background: var(--toast-bg); border: 1px solid var(--toast-border); border-radius: 10px;
+      padding: 0.75rem 1.1rem; font-size: 0.82rem; max-width: 300px; color: var(--toast-color);
+      opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; backdrop-filter: blur(4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.err  { border-color: var(--toast-err); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 4px; }
+
+    /* ── SUMMARY BAND ── */
+    .summary-row {
+      display: flex;
+      border-radius: 16px; overflow: hidden;
+      border: 2px solid var(--summary-row-border);
+      box-shadow: var(--summary-row-shadow);
+      background: var(--summary-row-bg);
+      margin-bottom: clamp(0.4rem,0.8vw,0.7rem);
+    }
+    /* ── LABEL COL ── */
+    .summary-label-col {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: clamp(90px,9vw,130px); min-width: clamp(90px,9vw,130px);
+      background: var(--summary-lbl-bg);
+      border-right: 1px solid var(--summary-lbl-bdr);
+      padding: 0.9rem 0.6rem; flex-shrink: 0; gap: 0.45rem;
+    }
+    .summary-label-title {
+      font-family: var(--font-h); font-size: 0.88rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--summary-title);
+      text-shadow: var(--summary-tshadow);
+      text-align: center; line-height: 1.2;
+    }
+    .summary-label-sub {
+      font-family: var(--font-b); font-size: 0.6rem; font-weight: 500;
+      color: var(--summary-sub); text-align: center; line-height: 1.4;
+    }
+    /* ── CHANNEL COLUMNS ── */
+    .summary-channels {
+      /* Channel width split: Voice 38% / Chat 31% / Email 31% (fr units sum to 100). */
+      display: grid; grid-template-columns: 38fr 31fr 31fr;
+      flex: 1; min-width: 0;
+    }
+    .summary-channel {
+      display: flex; flex-direction: column;
+      border-right: 1px solid var(--summary-ch-sep);
+      background: var(--summary-ch-bg);
+      position: relative;
+    }
+    .summary-channel:last-child { border-right: none; }
+    .summary-ch-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.55rem 0.85rem 0.25rem;
+    }
+    .summary-ch-title {
+      font-family: var(--font-h); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--summary-ch-title);
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .summary-ch-title svg { opacity: 0.85; flex-shrink: 0; }
+    .summary-sl-badge {
+      font-family: var(--font-h); font-size: 0.55rem; font-weight: 700;
+      letter-spacing: 0.08em; padding: 0.14rem 0.5rem; border-radius: 20px;
+      border: 1px solid; white-space: nowrap;
+    }
+    .summary-sl-badge.sl-good { color: var(--sl-good-c); border-color: var(--sl-good-b); background: var(--sl-good-bg); }
+    .summary-sl-badge.sl-warn { color: var(--sl-warn-c); border-color: var(--sl-warn-b); background: var(--sl-warn-bg); }
+    .summary-sl-badge.sl-crit { color: var(--sl-crit-c); border-color: var(--sl-crit-b); background: var(--sl-crit-bg); }
+    .summary-sl-badge.sl-none { color: var(--sl-none-c); border-color: var(--sl-none-b); background: var(--sl-none-bg); }
+    /* ── STATS ── */
+    .summary-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      flex: 1; align-items: center;
+      padding: 0.35rem 0.3rem;
+    }
+    .summary-stats.cols3 { grid-template-columns: repeat(3, 1fr); }
+    .summary-stat {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 0.3rem 0.15rem 0.15rem;
+      border-right: 1px solid var(--summary-stat-sep);
+    }
+    .summary-stat:last-child { border-right: none; }
+    .summary-stat-val {
+      font-family: var(--font-h); font-size: clamp(1.4rem,2vw,2rem); font-weight: 700;
+      line-height: 1; letter-spacing: -0.01em; color: var(--summary-stat-val);
+      margin-bottom: 0.2rem; white-space: nowrap;
+    }
+    .summary-stat-lbl {
+      font-family: var(--font-h); font-size: 0.48rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--summary-stat-lbl);
+      line-height: 1.25; text-align: center;
+    }
+    /* ── PROGRESS BAR ── */
+    .summary-progress-row {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.3rem 0.85rem 0.45rem;
+      border-top: 1px solid var(--progress-top);
+    }
+    .summary-progress-bar {
+      flex: 1; height: 1px; border-radius: 1px;
+      background: var(--progress-track); overflow: hidden;
+    }
+    .summary-progress-fill {
+      height: var(--progress-fill-h); border-radius: 2px;
+      transition: width 0.8s ease, background 0.6s ease;
+    }
+    .summary-progress-label {
+      font-family: var(--font-h); font-size: 0.48rem; font-weight: 600;
+      color: var(--progress-lbl); white-space: nowrap; letter-spacing: 0.05em;
+    }
+    @keyframes numflash2 { 0%{opacity:0.3;transform:scale(0.94)} 100%{opacity:1;transform:scale(1)} }
+    .summary-stat-val.flash { animation: numflash2 0.35s cubic-bezier(0.16,1,0.3,1); }
+
+    /* ── TOP ROW: Summary band + Agent Status side-by-side ── */
+    .top-row {
+      display: flex; align-items: stretch; gap: 0.75rem; flex-wrap: wrap;
+      margin-bottom: clamp(0.4rem,0.8vw,0.7rem);
+    }
+    /* Grow ratio 55/45; flex-basis sets the minimum proportional width. */
+    .top-row > .summary-row      { flex: 65 1 600px; margin-bottom: 0; min-width: 0; }
+    .top-row > .agent-status-row { flex: 35 1 360px; margin-bottom: 0; min-width: 0; }
+
+    /* ── AGENT STATUS CARD ── */
+    .agent-status-row {
+      display: flex;
+      border-radius: 16px; overflow: hidden;
+      border: 2px solid var(--summary-row-border);
+      box-shadow: var(--summary-row-shadow);
+      background: var(--summary-row-bg);
+    }
+    .agent-status-label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: clamp(76px,7vw,110px); min-width: clamp(76px,7vw,110px);
+      background: var(--summary-lbl-bg);
+      border-right: 1px solid var(--summary-lbl-bdr);
+      padding: 0.9rem 0.5rem; flex-shrink: 0; gap: 0.45rem;
+    }
+    .agent-status-label .title {
+      font-family: var(--font-h); font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--summary-title);
+      text-shadow: var(--summary-tshadow);
+      text-align: center; line-height: 1.2;
+    }
+    .agent-status-label .sub {
+      font-family: var(--font-b); font-size: 0.58rem; font-weight: 500;
+      color: var(--summary-sub); text-align: center; line-height: 1.4;
+    }
+    .agent-status-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+      align-items: stretch;
+      flex: 1; min-width: 0;
+      background: var(--summary-ch-bg);
+    }
+    .agent-status-section {
+      display: flex; flex-direction: column;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.75rem 0.9rem;
+      min-width: 0;
+    }
+    .agent-status-section.onqueue-section {
+      border-right: 1px solid var(--summary-stat-sep);
+    }
+
+    /* Pills (On-Queue / Off-Queue totals) */
+    .agent-pill {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 0.55rem;
+      padding: 0.36rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--summary-lbl-bdr);
+      background: var(--summary-lbl-bg);
+      font-family: var(--font-h); font-size: 0.78rem; font-weight: 700;
+      color: var(--summary-stat-lbl); letter-spacing: 0.08em;
+      text-transform: uppercase; white-space: nowrap;
+      min-width: 0;
+    }
+    .agent-pill .swatch {
+      width: 12px; height: 12px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .agent-pill.onqueue  .swatch {
+      background: var(--swatch-onqueue);
+      box-shadow: var(--swatch-onqueue-glow);
+    }
+    .agent-pill.offqueue .swatch {
+      background: var(--swatch-offqueue);
+      box-shadow: var(--swatch-offqueue-glow);
+    }
+    .agent-pill .name  { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .agent-pill .count {
+      color: var(--summary-stat-val);
+      font-family: var(--font-h); font-size: 1.15rem; font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      margin-left: 0.4rem;
+    }
+
+    /* Stat columns under each pill.
+       The column itself is a 3-track grid (swatch | name | count) and each
+       .agent-stat-item is `display: contents`, so tracks size to the widest
+       name in the column. Count stays right next to the label rather than
+       pushed to the cell edge, while still aligning vertically within the
+       column. */
+    .agent-stats-col {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      justify-content: start;
+      align-content: center;
+      row-gap: 0.45rem;
+      column-gap: 0.7rem;
+      min-width: 0;
+      font-family: var(--font-b); font-size: 0.8rem; font-weight: 500;
+      color: var(--summary-stat-lbl); letter-spacing: 0.02em;
+    }
+    /* Off-Queue section: two content-width sub-columns, centered as a block
+       under the Off-Queue pill. */
+    .agent-offqueue-grid {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+      column-gap: 1.75rem;
+      row-gap: 0;
+      align-items: start;
+    }
+    .agent-stat-item { display: contents; }
+    .agent-stats-col .swatch {
+      width: 10px; height: 10px; border-radius: 50%;
+      align-self: center;
+      box-shadow: var(--swatch-glow);
+    }
+    .agent-stat-item.onqueue-sub .swatch {
+      background: var(--swatch-onqueue); color: var(--swatch-onqueue);
+    }
+    .agent-stats-col .name  {
+      white-space: nowrap; align-self: center;
+    }
+    .agent-stats-col .count {
+      color: var(--summary-stat-val);
+      font-family: var(--font-h); font-size: 1rem; font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      justify-self: start; align-self: center;
+      margin-left: 0.1rem;
+    }
+
+    @media (max-width: 900px) {
+      .top-row { flex-direction: column; }
+      .top-row > .summary-row,
+      .top-row > .agent-status-row { flex: 1 1 auto; width: 100%; }
+      .summary-band { grid-template-columns: 1fr; }
+      .main-grid { grid-template-columns: 1fr; }
+      .voice-panels { flex-direction: row; flex-wrap: wrap; }
+      .voice-panel { min-width: 340px; }
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: none; border: none; cursor: pointer; padding: 0; flex-shrink: 0;
+    }
+    .toggle-track {
+      position: relative; width: 42px; height: 22px; border-radius: 11px;
+      background: rgba(58,128,255,0.2); border: 1.5px solid rgba(58,128,255,0.35);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    [data-theme="light"] .toggle-track {
+      background: rgba(37,99,235,0.15); border-color: rgba(37,99,235,0.35);
+    }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #7ec4ff; transition: transform 0.3s, background 0.3s;
+      display: flex; align-items: center; justify-content: center; font-size: 9px;
+    }
+    [data-theme="light"] .toggle-thumb {
+      transform: translateX(20px);
+      background: #2563eb;
+    }
+    .toggle-label {
+      font-family: var(--font-h); font-size: clamp(0.5rem,0.8vw,0.65rem);
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); white-space: nowrap; user-select: none;
+    }
+  </style>
+</head>
+<body>
+<div class="stars"></div>
+<script>
+const LOGO_SRC = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KPGRlZnM+CiA8cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSI0MiUiIHI9IjY1JSI+CiAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2JmZTBmZiIvPgogIDxzdG9wIG9mZnNldD0iNTUlIiBzdG9wLWNvbG9yPSIjNGRhNmZmIi8+CiAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMWU1ZmQwIi8+CiA8L3JhZGlhbEdyYWRpZW50Pgo8L2RlZnM+CjxjaXJjbGUgY3g9IjgwIiBjeT0iODAiIHI9Ijc2IiBmaWxsPSIjMGExODM2Ii8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iODAiIHI9Ijc2IiBmaWxsPSJub25lIiBzdHJva2U9IiM0ZGE2ZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNODAgMjIgTDkyIDY4IEwxMzggODAgTDkyIDkyIEw4MCAxMzggTDY4IDkyIEwyMiA4MCBMNjggNjggWiIgZmlsbD0idXJsKCNnKSIvPgo8Y2lyY2xlIGN4PSI4MCIgY3k9IjgwIiByPSI5IiBmaWxsPSIjZmZmIi8+Cjwvc3ZnPg==";
+(function(){
+  var l=document.createElement('link'); l.rel='shortcut icon'; l.type='image/png'; l.href=LOGO_SRC;
+  document.head.appendChild(l);
+})();
+
+const CONFIG = {
+  // Department-style queues. Each "department" (formerly a POD) is one
+  // multi-channel queue handling Voice, Chat, and Email.
+  DEPARTMENTS: [
+    { id: 1, label: 'Sales Team',      color: '#e53e3e' },
+    { id: 2, label: 'Billing Team',    color: '#805ad5' },
+    { id: 3, label: 'Technical Team',  color: '#3182ce' },
+    { id: 4, label: 'Retention Team',  color: '#d69e2e' },
+  ],
+  // Specialty voice-only sub-teams shown in the left rail.
+  VOICE_PANELS: [
+    { id: 'vp1', label: 'Escalations Team',    color: '#00b5d8' },
+    { id: 'vp2', label: 'Onboarding Team',     color: '#38a169' },
+    { id: 'vp3', label: 'Account Management',  color: '#dd6b20' },
+    { id: 'vp4', label: 'Partner Support',     color: '#9f7aea' },
+  ],
+  REFRESH_MS:   30000,
+  WARN_WAITING: 5,
+  CRIT_WAITING: 10,
+};
+
+// Build the PODS structure the render code expects from DEPARTMENTS.
+// Each department is a single multi-channel queue; queue "id" is a stable
+// synthetic string so the simulator and DOM keys stay consistent.
+CONFIG.PODS = CONFIG.DEPARTMENTS.map(d => {
+  const qid = `dept-${d.id}`;
+  return {
+    id: d.id, label: d.label, color: d.color,
+    queues: [
+      { id: qid, label: 'Voice Queue', mediaType: 'voice'   },
+      { id: qid, label: 'Chat Queue',  mediaType: 'message' },
+      { id: qid, label: 'Email Queue', mediaType: 'email'   },
+    ],
+  };
+});
+// Give each voice panel a synthetic queueId too.
+CONFIG.VOICE_PANELS.forEach((vp, i) => { vp.queueId = `vpq-${i+1}`; });
+
+function allQueues() {
+  const qs = CONFIG.PODS.flatMap(p => p.queues);
+  CONFIG.VOICE_PANELS.forEach(vp => qs.push({ id: vp.queueId, label: 'Voice Queue', mediaType: 'voice' }));
+  return qs;
+}
+
+// Distinct queue IDs across all PODs + voice panels (for API calls that only
+// need the unique ID list, not the per-tile mediaType splits).
+function allQueueIds() {
+  return [...new Set(allQueues().map(q => q.id))];
+}
+
+// Look up a (queueId, mediaType) bucket from an observations map produced by
+// getObservations(). The map is shaped as:
+//   obs[queueId] = { voice: {...}, message: {...}, email: {...}, _any: {...} }
+// For multi-channel queues (e.g. Care Team POD 3), each mediaType returns its
+// own waiting/interacting counts. For single-channel queues the requested
+// mediaType bucket is still used; _any is a safe fallback that sums across
+// mediaTypes if the expected bucket is missing from the response.
+function obsFor(obs, queueId, mediaType) {
+  const entry = obs && obs[queueId];
+  if (!entry) return { waiting: 0, interacting: 0, longestWaitSec: 0 };
+  if (mediaType && entry[mediaType]) return entry[mediaType];
+  // Genesys reports chat channels under both 'chat' and 'message' — treat them
+  // as the same bucket.
+  if (mediaType === 'message' && entry.chat) return entry.chat;
+  if (mediaType === 'chat' && entry.message) return entry.message;
+  return entry._any || { waiting: 0, interacting: 0, longestWaitSec: 0 };
+}
+</script>
+
+<div class="wrapper">
+  <header>
+    <div class="brand">
+      <div class="brand-icon"><img id="header-logo" src="" alt="Northstar Care"/></div>
+      <div>
+        <div class="brand-name">Support Center Dashboard</div>
+        <div class="brand-sub">Real-Time Dashboard for All Support Queues</div>
+      </div>
+    </div>
+    <div class="header-line"></div>
+    <div class="header-right">
+      <div class="clock" id="clock">--:--:-- --</div>
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Switch theme">
+        <div class="toggle-track"><div class="toggle-thumb">&#9728;</div></div>
+        <span class="toggle-label" id="theme-label">Light</span>
+      </button>
+      <div class="live-pill offline" id="live-badge">
+        <span class="live-dot" id="live-dot"></span>
+        <span id="badge-text">OFFLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- View All Button -->
+  <div class="view-all-bar">
+    <a class="btn-view-all" id="btn-all-queues" href="#" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      View Full Detail Report
+    </a>
+  </div>
+
+  <!-- Global Last Updated -->
+  <div style="display:flex;justify-content:flex-end;margin-bottom:0.3rem;">
+    <div style="display:flex;align-items:center;gap:0.4rem;font-family:var(--font-b);font-size:0.55rem;color:var(--muted);letter-spacing:0.04em;">
+      <span style="width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(0,230,118,0.8);animation:livepulse 2s ease-in-out infinite;flex-shrink:0;display:inline-block;"></span>
+      <span id="global-ts">Last updated 0 seconds ago</span>
+    </div>
+  </div>
+  <!-- Top Row: Summary Band + Agent Status -->
+  <div class="top-row">
+  <!-- Summary Band -->
+  <div class="summary-row" id="summary-band">
+    <!-- Label -->
+    <div class="summary-label-col">
+      <div class="summary-label-title">Support Center<br>All Queues</div>
+      <div class="summary-label-sub">Stats from all support queues combined</div>
+    </div>
+    <!-- Channels -->
+    <div class="summary-channels">
+      <!-- Voice -->
+      <div class="summary-channel">
+        <div class="summary-ch-header">
+          <div class="summary-ch-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--summary-title)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.55 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.27-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Voice
+          </div>
+          <div class="summary-sl-badge sl-none" id="sb-voice-sl">SL —</div>
+        </div>
+        <div class="summary-stats">
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-voice-waiting">—</div><div class="summary-stat-lbl" id="sb-voice-waiting-lbl">Interactions<br>Waiting</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-voice-avgwait">—</div><div class="summary-stat-lbl">Avg Wait<br>Today</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-voice-offered">—</div><div class="summary-stat-lbl">Offered<br>Today</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-voice-abandoned">—</div><div class="summary-stat-lbl">Abandoned<br>Today</div></div>
+        </div>
+        <div class="summary-progress-row">
+          <div class="summary-progress-bar"><div class="summary-progress-fill" id="sb-voice-bar" style="width:0%"></div></div>
+          <div class="summary-progress-label" id="sb-voice-target">Target —%</div>
+        </div>
+      </div>
+      <!-- Chat -->
+      <div class="summary-channel">
+        <div class="summary-ch-header">
+          <div class="summary-ch-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Chat
+          </div>
+          <div class="summary-sl-badge sl-none" id="sb-chat-sl">SL —</div>
+        </div>
+        <div class="summary-stats cols3">
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-chat-waiting">—</div><div class="summary-stat-lbl" id="sb-chat-waiting-lbl">Interactions<br>Waiting</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-chat-avgwait">—</div><div class="summary-stat-lbl">Avg Wait<br>Today</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-chat-offered">—</div><div class="summary-stat-lbl">Offered<br>Today</div></div>
+        </div>
+        <div class="summary-progress-row">
+          <div class="summary-progress-bar"><div class="summary-progress-fill" id="sb-chat-bar" style="width:0%"></div></div>
+          <div class="summary-progress-label" id="sb-chat-target">Target —%</div>
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="summary-channel">
+        <div class="summary-ch-header">
+          <div class="summary-ch-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </div>
+          <div class="summary-sl-badge sl-none" id="sb-email-sl">SL —</div>
+        </div>
+        <div class="summary-stats cols3">
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-email-waiting">—</div><div class="summary-stat-lbl" id="sb-email-waiting-lbl">Interactions<br>Waiting</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-email-avgwait">—</div><div class="summary-stat-lbl">Avg Wait<br>Today</div></div>
+          <div class="summary-stat"><div class="summary-stat-val" id="sb-email-offered">—</div><div class="summary-stat-lbl">Offered<br>Today</div></div>
+        </div>
+        <div class="summary-progress-row">
+          <div class="summary-progress-bar"><div class="summary-progress-fill" id="sb-email-bar" style="width:0%"></div></div>
+          <div class="summary-progress-label" id="sb-email-target">Target —%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Agent Status -->
+  <div class="agent-status-row" id="agent-status-row">
+    <div class="agent-status-label">
+      <div class="title">Agent<br>Status</div>
+      <div class="sub">Live presence<br>across all agents</div>
+    </div>
+    <div class="agent-status-body">
+      <!-- On-Queue section: pill + on-queue routing breakdown -->
+      <div class="agent-status-section onqueue-section">
+        <div class="agent-pill onqueue">
+          <span class="swatch"></span>
+          <span class="name">On-Queue</span>
+          <span class="count" id="agent-onqueue-count">—</span>
+        </div>
+        <div class="agent-stats-col">
+          <div class="agent-stat-item onqueue-sub">
+            <span class="swatch"></span>
+            <span class="name">Idle</span>
+            <span class="count" id="agent-routing-idle">—</span>
+          </div>
+          <div class="agent-stat-item onqueue-sub">
+            <span class="swatch"></span>
+            <span class="name">Not responding</span>
+            <span class="count" id="agent-routing-notresp">—</span>
+          </div>
+          <div class="agent-stat-item onqueue-sub">
+            <span class="swatch"></span>
+            <span class="name">Interacting</span>
+            <span class="count" id="agent-routing-interacting">—</span>
+          </div>
+          <div class="agent-stat-item onqueue-sub">
+            <span class="swatch"></span>
+            <span class="name">Communicating</span>
+            <span class="count" id="agent-routing-communicating">—</span>
+          </div>
+        </div>
+      </div>
+      <!-- Off-Queue section: pill + 2-col presence grid (populated by initAgentLegend) -->
+      <div class="agent-status-section offqueue-section">
+        <div class="agent-pill offqueue">
+          <span class="swatch"></span>
+          <span class="name">Off-Queue</span>
+          <span class="count" id="agent-offqueue-count">—</span>
+        </div>
+        <div class="agent-offqueue-grid">
+          <div class="agent-stats-col" id="agent-legend-col-a"></div>
+          <div class="agent-stats-col" id="agent-legend-col-b"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="main-grid">
+    <div class="voice-panels" id="voice-panels">
+      <div style="text-align:center;padding:3rem 1rem;color:var(--muted);font-size:0.9rem">Connecting&hellip;</div>
+    </div>
+    <div class="pods-container" id="pods-container">
+      <div style="text-align:center;padding:5rem 2rem;color:var(--muted);font-size:0.9rem">Connecting&hellip;</div>
+    </div>
+  </div>
+</div>
+
+<div id="auth-overlay" style="display:none">
+  <div class="auth-logo"><img id="auth-logo" src="" alt="Northstar Care"/></div>
+  <h1>Support Center Dashboard</h1>
+  <p class="auth-subtitle">Real-Time Dashboard</p>
+  <p>Sign in to monitor live queue statistics. This is a demonstration environment &mdash; any username and password will work.</p>
+  <input class="auth-input" id="auth-user" type="text" placeholder="Username" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/>
+  <input class="auth-input" id="auth-pass" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+  <button class="btn-auth" onclick="doLogin()">Sign In</button>
+  <p class="auth-demo-note">Demo data is simulated and refreshes every 30 seconds.</p>
+</div>
+<div id="toast"></div>
+
+<script>
+document.querySelectorAll('#header-logo, #auth-logo').forEach(el => el.src = LOGO_SRC);
+// Demo build: the detail-report button is inert (no external Genesys link).
+document.getElementById('btn-all-queues').removeAttribute('target');
+document.getElementById('btn-all-queues').addEventListener('click', e => e.preventDefault());
+
+let token=null, timer=null, firstRender=true, lastUpdated=null, secondsTimer=null;
+let perQueueAgg = {}; // {queueId: {nOffered, nAbandoned}}
+
+// ── CLOCK ──
+setInterval(() => {
+  document.getElementById('clock').textContent =
+    new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true });
+}, 1000);
+
+// ── COUNTDOWN ──
+function startCountdown() {
+  lastUpdated = Date.now();
+  if (secondsTimer) clearInterval(secondsTimer);
+  secondsTimer = setInterval(() => {
+    const s = Math.round((Date.now() - lastUpdated) / 1000);
+    const globalTs = document.getElementById('global-ts');
+    if(globalTs) globalTs.textContent = `Last updated ${s} second${s!==1?'s':''} ago`;
+  }, 1000);
+}
+
+// ── FAVICON ──
+let faviconTimer=null, faviconFlip=false;
+function makeFavicon(color) {
+  const c=document.createElement('canvas'); c.width=64; c.height=64;
+  const ctx=c.getContext('2d');
+  ctx.beginPath(); ctx.arc(32,32,30,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='bold 44px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('!',32,34);
+  return c.toDataURL('image/png');
+}
+const FAVICON_ALERT = makeFavicon('#ff2222');
+function setFavicon(href) {
+  let l=document.querySelector("link[rel*='icon']");
+  if(!l){l=document.createElement('link');l.rel='shortcut icon';document.head.appendChild(l);}
+  l.type='image/png'; l.href=href;
+}
+function startAlertFlash() {
+  if(faviconTimer) return;
+  faviconTimer=setInterval(()=>{faviconFlip=!faviconFlip;setFavicon(faviconFlip?FAVICON_ALERT:LOGO_SRC);},900);
+}
+function stopAlertFlash() {
+  if(!faviconTimer) return; clearInterval(faviconTimer); faviconTimer=null; faviconFlip=false; setFavicon(LOGO_SRC);
+}
+
+// ── ALERT CHECK ──
+function checkAlerts(obs, agents) {
+  const anyAlert = allQueues().some(q => {
+    const w = obsFor(obs, q.id, q.mediaType).waiting || 0;
+    const ag = agents[q.id] ?? null;
+    return w > 0 && (ag === 0 || ag === null);
+  });
+  anyAlert ? startAlertFlash() : stopAlertFlash();
+
+  // POD labels
+  CONFIG.PODS.forEach(pod => {
+    const alert = pod.queues.some(q => {
+      const w = obsFor(obs, q.id, q.mediaType).waiting || 0;
+      const ag = agents[q.id] ?? null;
+      return w > 0 && (ag === 0 || ag === null);
+    });
+    const el = document.querySelector(`#pod-row-${pod.id} .pod-label-text`);
+    if(el) alert ? el.classList.add('alerting') : el.classList.remove('alerting');
+  });
+
+  // Voice panel titles
+  CONFIG.VOICE_PANELS.forEach(vp => {
+    const w = obsFor(obs, vp.queueId, 'voice').waiting || 0;
+    const ag = agents[vp.queueId] ?? null;
+    const alert = w > 0 && (ag === 0 || ag === null);
+    const el = document.querySelector(`#${vp.id} .voice-panel-title`);
+    if(el) alert ? el.classList.add('alerting') : el.classList.remove('alerting');
+  });
+}
+
+// ── MOCK AUTH (demo) ──
+// No real OAuth. Any username/password is accepted. On submit we mark the
+// session authenticated in memory and start the simulated data feed.
+function doLogin() {
+  const overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.style.display = 'none';
+  token = 'demo-session';
+  startSim();
+}
+function showAuth(){ const o=document.getElementById('auth-overlay'); if(o) o.style.display='flex'; }
+
+// ── SIMULATION ENGINE ──
+// Produces realistic, gently-drifting real-time numbers entirely client-side.
+// State is kept per queue+channel and per voice panel, plus a roster of agents.
+// Every refresh we nudge each value by a small random walk (never huge swings)
+// and occasionally let a queue slip into a "no agents on-queue" condition so
+// the threshold styling (WAITING / NO AGENTS) demonstrates correctly.
+
+const SIM = {
+  // Per-queue channel state: waiting count, longest-wait seconds, on-queue agents,
+  // and cumulative "today" tallies (offered / abandoned) that only ever grow.
+  channels: {},   // key `${queueId}:${mediaType}`
+  panels:   {},   // key voice panel queueId
+  agents:   [],   // roster for the Agent Status card
+  started:  false,
+};
+
+function _rand(min, max) { return Math.random() * (max - min) + min; }
+function _clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+// Channel baseline "personality" — voice is busiest, email is slow/bursty.
+const SIM_CHANNEL_PROFILE = {
+  voice:   { baseAgents: 5, maxWait: 8,  offRate: [2, 5],  abandonChance: 0.10, lwStep: 22 },
+  message: { baseAgents: 3, maxWait: 6,  offRate: [1, 3],  abandonChance: 0.04, lwStep: 30 },
+  email:   { baseAgents: 2, maxWait: 4,  offRate: [1, 2],  abandonChance: 0.02, lwStep: 900 },
+};
+
+function _initChannelState(key, mediaType) {
+  const p = SIM_CHANNEL_PROFILE[mediaType] || SIM_CHANNEL_PROFILE.voice;
+  const waiting = Math.round(_rand(0, 2));
+  const floor = mediaType === 'email' ? 1800 : mediaType === 'message' ? 30 : 15;
+  SIM.channels[key] = {
+    mediaType,
+    waiting,
+    // If seeded with a backlog, start longest-wait at a realistic non-zero value.
+    longestWaitSec: waiting > 0 ? floor + Math.round(_rand(0, floor)) : 0,
+    agents: Math.max(1, Math.round(p.baseAgents + _rand(-1, 1))),
+    offered: Math.round(_rand(20, 120)),
+    abandoned: Math.round(_rand(0, 6)),
+    // low-probability "understaffed" streak so NO-AGENTS alerts are occasional
+    noAgentStreak: 0,
+  };
+}
+
+function _initPanelState(qid) {
+  const p = SIM_CHANNEL_PROFILE.voice;
+  const waiting = Math.round(_rand(0, 2));
+  SIM.panels[qid] = {
+    mediaType: 'voice',
+    waiting,
+    longestWaitSec: waiting > 0 ? 15 + Math.round(_rand(0, 40)) : 0,
+    agents: Math.max(1, Math.round(p.baseAgents + _rand(-2, 1))),
+    offered: Math.round(_rand(10, 70)),
+    abandoned: Math.round(_rand(0, 4)),
+    noAgentStreak: 0,
+  };
+}
+
+// Build the agent roster once. Roughly two-thirds on-queue, rest off-queue in
+// various presences, sized to loosely match total staffed seats.
+function _initAgents() {
+  const presences = [
+    { key: 'Available', w: 3 }, { key: 'Away', w: 2 }, { key: 'Break', w: 2 },
+    { key: 'Meal', w: 1 }, { key: 'Training', w: 1 }, { key: 'Meeting', w: 1 }, { key: 'Busy', w: 1 },
+  ];
+  const pool = [];
+  presences.forEach(p => { for (let i=0;i<p.w;i++) pool.push(p.key); });
+  const total = 46;
+  SIM.agents = [];
+  for (let i = 0; i < total; i++) {
+    // ~65% on queue
+    if (Math.random() < 0.65) {
+      const rs = ['idle','idle','interacting','interacting','communicating','notResponding'];
+      SIM.agents.push({ onQueue: true, routing: rs[Math.floor(Math.random()*rs.length)] });
+    } else {
+      SIM.agents.push({ onQueue: false, presence: pool[Math.floor(Math.random()*pool.length)] });
+    }
+  }
+}
+
+// Nudge one agent occasionally so the presence breakdown breathes.
+function _driftAgents() {
+  const n = 1 + Math.floor(Math.random()*3);
+  for (let k = 0; k < n; k++) {
+    const a = SIM.agents[Math.floor(Math.random()*SIM.agents.length)];
+    if (!a) continue;
+    if (a.onQueue) {
+      const rs = ['idle','interacting','interacting','communicating','notResponding'];
+      a.routing = rs[Math.floor(Math.random()*rs.length)];
+      // small chance of stepping off queue
+      if (Math.random() < 0.10) { a.onQueue = false; a.presence = 'Break'; delete a.routing; }
+    } else {
+      // chance of returning to queue
+      if (Math.random() < 0.25) { a.onQueue = true; a.routing = 'idle'; delete a.presence; }
+      else {
+        const opts = ['Available','Away','Break','Meal','Training','Meeting','Busy'];
+        a.presence = opts[Math.floor(Math.random()*opts.length)];
+      }
+    }
+  }
+}
+
+// Advance one queue-channel by a small random walk.
+function _stepChannel(st) {
+  const p = SIM_CHANNEL_PROFILE[st.mediaType] || SIM_CHANNEL_PROFILE.voice;
+
+  // Occasionally trigger a short understaffed streak (moderate intensity):
+  // ~4% chance to begin a 1–3 refresh window where agents drop to 0.
+  if (st.noAgentStreak > 0) {
+    st.noAgentStreak--;
+    st.agents = 0;
+  } else {
+    if (Math.random() < 0.04) {
+      st.noAgentStreak = 1 + Math.floor(Math.random()*2);
+      st.agents = 0;
+    } else {
+      // normal staffing random walk
+      st.agents = Math.round(_clamp(st.agents + _rand(-1, 1), 1, p.baseAgents + 3));
+    }
+  }
+
+  // Arrivals this interval (offered), always grows the daily tally.
+  const arrivals = Math.round(_rand(p.offRate[0], p.offRate[1]));
+  st.offered += arrivals;
+
+  // Waiting dynamics: if staffed, agents pull from the queue; if not, it grows.
+  if (st.agents === 0) {
+    st.waiting = _clamp(st.waiting + Math.round(_rand(1, 2)), 0, p.maxWait + 4);
+  } else {
+    const served = Math.round(_rand(0, st.agents));
+    st.waiting = _clamp(st.waiting + arrivals - served, 0, p.maxWait + 2);
+  }
+
+  // A few of the "served-that-left" become abandons occasionally.
+  if (Math.random() < p.abandonChance) st.abandoned += 1;
+
+  // Longest wait: whenever at least one interaction is waiting, this must be a
+  // real, non-zero duration. Grow it while the backlog persists, but never let
+  // it read 0:00 with someone in queue — enforce a sensible per-channel floor.
+  if (st.waiting > 0) {
+    const floor = st.mediaType === 'email' ? 1800 : st.mediaType === 'message' ? 30 : 15;
+    const cap   = st.mediaType === 'email' ? 86400 : 1800;
+    st.longestWaitSec = _clamp(st.longestWaitSec + Math.round(_rand(5, p.lwStep)), floor, cap);
+  } else {
+    st.longestWaitSec = 0;
+  }
+}
+
+function _ensureState() {
+  if (SIM.started) return;
+  allQueues().forEach(q => {
+    const key = `${q.id}:${q.mediaType}`;
+    if (!SIM.channels[key]) _initChannelState(key, q.mediaType);
+  });
+  CONFIG.VOICE_PANELS.forEach(vp => { if (!SIM.panels[vp.queueId]) _initPanelState(vp.queueId); });
+  _initAgents();
+  SIM.started = true;
+}
+
+function _stepAll() {
+  Object.values(SIM.channels).forEach(_stepChannel);
+  Object.values(SIM.panels).forEach(_stepChannel);
+  _driftAgents();
+}
+
+// ── SIM-BACKED DATA ACCESSORS (mirror the old API function shapes) ──
+
+// Observations map: { [queueId]: { voice:{...}, message:{...}, email:{...}, _any:{...} } }
+function getObservations() {
+  const map = {};
+  allQueues().forEach(q => {
+    const st = SIM.channels[`${q.id}:${q.mediaType}`];
+    if (!st) return;
+    if (!map[q.id]) map[q.id] = {};
+    map[q.id][q.mediaType] = { waiting: st.waiting, interacting: st.agents ? Math.round(_rand(0, st.agents)) : 0, longestWaitSec: st.longestWaitSec };
+  });
+  CONFIG.VOICE_PANELS.forEach(vp => {
+    const st = SIM.panels[vp.queueId];
+    if (!st) return;
+    if (!map[vp.queueId]) map[vp.queueId] = {};
+    map[vp.queueId].voice = { waiting: st.waiting, interacting: st.agents ? Math.round(_rand(0, st.agents)) : 0, longestWaitSec: st.longestWaitSec };
+  });
+  for (const qId of Object.keys(map)) {
+    const any = { waiting: 0, interacting: 0, longestWaitSec: 0 };
+    for (const [mt, b] of Object.entries(map[qId])) {
+      if (mt === '_any') continue;
+      any.waiting += b.waiting; any.interacting += b.interacting;
+      if (b.longestWaitSec > any.longestWaitSec) any.longestWaitSec = b.longestWaitSec;
+    }
+    map[qId]._any = any;
+  }
+  return map;
+}
+
+// On-queue agent count for a given queue id (dept or voice panel).
+function getAgents(queueId) {
+  // department queue: sum voice/message/email staffed seats
+  let total = 0, found = false;
+  ['voice','message','email'].forEach(mt => {
+    const st = SIM.channels[`${queueId}:${mt}`];
+    if (st) { total += st.agents; found = true; }
+  });
+  if (found) return total;
+  const p = SIM.panels[queueId];
+  if (p) return p.agents;
+  return null;
+}
+// ── AGENT STATUS (MASTER QUEUE) ──
+// Status buckets mirror the presences shown in the supervisor UI.
+// `sys`  = Genesys systemPresence ("AVAILABLE", "BUSY", ...) — case-insensitive match.
+// `key`  = the display label (and also matched against custom org presence names
+//          like "Meal" or "Training", which share systemPresence=AWAY but have
+//          a distinct presenceDefinition.name).
+// Order matches the supervisor mockup: OK (green) → amber (off-task but in-shift)
+// → red (unavailable). The `sys` value is the Genesys systemPresence bucket;
+// the `key` is what we match custom org presences against by display name.
+// Theme-aware swatch colors: hex values come from CSS vars (dark = neon,
+// light = subdued). Using var() keeps the JS output theme-agnostic.
+const AGENT_STATUSES = [
+  { key: 'Available', color: 'var(--swatch-available)', sys: 'AVAILABLE' },
+  { key: 'Away',      color: 'var(--swatch-warn)',      sys: 'AWAY'      },
+  { key: 'Break',     color: 'var(--swatch-warn)',      sys: 'BREAK'     },
+  { key: 'Meal',      color: 'var(--swatch-warn)',      sys: 'MEAL'      },
+  { key: 'Training',  color: 'var(--swatch-warn)',      sys: 'TRAINING'  },
+  { key: 'Meeting',   color: 'var(--swatch-crit)',      sys: 'MEETING'   },
+  { key: 'Busy',      color: 'var(--swatch-crit)',      sys: 'BUSY'      },
+];
+
+// Classify one user into a status bucket.
+// Prefer the DISPLAY name (presenceDefinition.name) because custom org
+// presences like "Meal" / "Meeting" / "Training" share systemPresence with
+// AWAY/BUSY/etc — the display name is what matches our bucket keys.
+function classifyPresence(user) {
+  const p = user && user.presence;
+  if (!p) return null;
+  const candidates = [
+    p.presenceDefinition && p.presenceDefinition.name,  // e.g. "Meal"
+    p.name,                                              // fallback
+    p.presenceDefinition && p.presenceDefinition.systemPresence, // e.g. "AVAILABLE"
+  ].filter(Boolean);
+  for (const cand of candidates) {
+    const s = String(cand).toLowerCase();
+    const hit = AGENT_STATUSES.find(b =>
+      b.key.toLowerCase() === s || b.sys.toLowerCase() === s
+    );
+    if (hit) return hit.key;
+  }
+  return null;
+}
+
+// Aggregate the simulated agent roster into the shape the Agent Status card
+// expects: total headcount, on-queue count, off-queue count, an off-queue
+// presence breakdown, and an on-queue routing breakdown.
+function getCareTeamAgents() {
+  const counts  = Object.fromEntries(AGENT_STATUSES.map(s => [s.key, 0]));
+  const routing = { idle: 0, notResponding: 0, interacting: 0, communicating: 0 };
+  let total = 0, onQueue = 0;
+  for (const a of SIM.agents) {
+    total++;
+    if (a.onQueue) {
+      onQueue++;
+      if (routing[a.routing] !== undefined) routing[a.routing]++;
+    } else if (counts[a.presence] !== undefined) {
+      counts[a.presence]++;
+    }
+  }
+  const offQueue = Object.values(counts).reduce((x, y) => x + y, 0);
+  return { total, onQueue, offQueue, counts, routing };
+}
+
+// ── HELPERS ──
+function fmtTime(sec) {
+  sec = Math.round(sec || 0);
+  if (sec <= 0) return { v: '0:00', u: 'm:ss' };
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  // Under an hour: show minutes:seconds so short waits never collapse to 0:00.
+  if (h === 0) return { v: `${m}:${String(s).padStart(2,'0')}`, u: 'm:ss' };
+  // An hour or more (e.g. email backlogs): show hours:minutes.
+  return { v: `${h}:${String(m).padStart(2,'0')}`, u: 'h:mm' };
+}
+function health(waiting,ag) {
+  if(waiting>0 && (ag===0||ag===null)) return {show:true,cls:'no-agents',label:'NO AGENTS'};
+  if(waiting>0 && ag>0)               return {show:true,cls:'warn',label:'WAITING'};
+  return {show:false,cls:'',label:''};
+}
+function cardClass(waiting,ag) {
+  if(waiting>0 && (ag===0||ag===null)) return 'no-agents';
+  if(waiting>0 && ag>0)               return 'warn';
+  return 'ok';
+}
+function getThemeVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function waitColor(w) {
+  if(w>=2) return getThemeVar('--c-wait-2');
+  if(w===1) return getThemeVar('--c-wait-1');
+  return getThemeVar('--c-wait-0');
+}
+function agentColor(ag) {
+  if(ag===null||ag===0) return null;
+  if(ag===1) return getThemeVar('--c-ag1');
+  if(ag===2) return getThemeVar('--c-ag2');
+  if(ag===3) return getThemeVar('--c-ag3');
+  return getThemeVar('--c-agn');
+}
+function channelIcon(label) {
+  const l=label.toLowerCase();
+  if(l.includes('chat'))  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--icon-chat)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
+  if(l.includes('email')) return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--icon-email)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:1"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--icon-voice)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:1"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.55 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.27-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":'&#39;'}[c]));}
+
+// ── BUILD CARD HTML ──
+function buildCard(key, q, o, ag) {
+  const agDisplay=ag===null?'—':String(ag);
+  const h=health(o.waiting,ag), cc=cardClass(o.waiting,ag), lw=fmtTime(o.longestWaitSec);
+  const wColor=waitColor(o.waiting), aColor=agentColor(ag);
+  const isVoiceCard = q.label === 'Voice Queue';
+  const badgeHtml=h.show
+    ?`<div class="badge ${h.cls}" id="badge-${key}">${h.label}</div>`
+    :`<div id="badge-${key}" style="display:none"></div>`;
+  return `
+    <div class="card-head"><div class="card-name">${channelIcon(q.label)}${esc(q.label)}</div>${badgeHtml}</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Waiting</div>
+        <div class="stat-val" id="sv-wait-${key}" style="color:${wColor}">${o.waiting}</div>
+
+      </div>
+      <div class="stat">
+        <div class="stat-label">Agents on Queue</div>
+        <div class="stat-val${aColor?'':' c-agent-zero'}" id="sv-ag-${key}" ${aColor?`style="color:${aColor}"`:''}>${agDisplay}</div>
+        <div class="stat-unit">staffed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Longest Waiting</div>
+        <div class="stat-val" id="sv-lw-${key}" style="color:${getThemeVar('--c-lw')}">${lw.v}</div>
+        <div class="stat-unit" id="su-lw-${key}">${lw.u}</div>
+      </div>
+      <div class="stat stat-today">
+        <div class="stat-label">Offered<br>Today</div>
+        <div class="stat-val" id="sv-off-${key}" style="color:${getThemeVar('--c-offered')}">—</div>
+
+      </div>
+      ${isVoiceCard?`<div class="stat stat-today">
+        <div class="stat-label">Abandoned<br>Today</div>
+        <div class="stat-val" id="sv-abn-${key}" style="color:${getThemeVar('--c-abandoned')}">—</div>
+
+      </div>`:''}
+    </div>`;
+}
+
+// ── UPDATE CARD ──
+function updateCard(key, o, ag) {
+  const agDisplay=ag===null?'—':String(ag);
+  const h=health(o.waiting,ag), cc=cardClass(o.waiting,ag), lw=fmtTime(o.longestWaitSec);
+  const wColor=waitColor(o.waiting), aColor=agentColor(ag);
+  const card=document.getElementById(`card-${key}`);
+  if(card) card.className=`card ${cc}`;
+  const badge=document.getElementById(`badge-${key}`);
+  if(badge){
+    if(h.show){badge.className=`badge ${h.cls}`;badge.textContent=h.label;badge.style.display='';}
+    else{badge.className='';badge.textContent='';badge.style.display='none';}
+  }
+  function flashVal(el,val,color,cls){
+    if(!el) return;
+    if(cls){el.className=`stat-val ${cls}`;el.removeAttribute('style');}
+    else{el.className='stat-val';el.style.color=color;}
+    if(el.textContent!==String(val)){el.textContent=val;el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+  }
+  flashVal(document.getElementById(`sv-wait-${key}`),o.waiting,wColor,null);
+  flashVal(document.getElementById(`sv-ag-${key}`),agDisplay,aColor,aColor?null:'c-agent-zero');
+  const lwEl=document.getElementById(`sv-lw-${key}`);
+  if(lwEl&&lwEl.textContent!==lw.v){lwEl.textContent=lw.v;lwEl.classList.remove('flash');void lwEl.offsetWidth;lwEl.classList.add('flash');}
+  const suLw=document.getElementById(`su-lw-${key}`); if(suLw) suLw.textContent=lw.u;
+}
+
+// ── RENDER ──
+function render(obs, agents) {
+  const podsContainer=document.getElementById('pods-container');
+  const voicePanels=document.getElementById('voice-panels');
+  if(firstRender){ podsContainer.innerHTML=''; voicePanels.innerHTML=''; }
+
+  // POD rows
+  CONFIG.PODS.forEach(pod => {
+    let podRow=document.getElementById(`pod-row-${pod.id}`);
+    if(!podRow){
+      podRow=document.createElement('div');
+      podRow.id=`pod-row-${pod.id}`; podRow.className='pod-row';
+      podRow.style.setProperty('--pod-color',pod.color);
+      const hdr=document.createElement('div'); hdr.className='pod-header';
+      const labelSpan=document.createElement('span'); labelSpan.className='pod-label-text';
+      labelSpan.textContent=pod.label; hdr.appendChild(labelSpan);
+      podRow.appendChild(hdr);
+      const queuesDiv=document.createElement('div'); queuesDiv.className='pod-queues'; queuesDiv.id=`pod-queues-${pod.id}`;
+      podRow.appendChild(queuesDiv); podsContainer.appendChild(podRow);
+    }
+    const queuesDiv=document.getElementById(`pod-queues-${pod.id}`);
+    pod.queues.forEach(q => {
+      const o=obsFor(obs, q.id, q.mediaType);
+      const ag=agents[q.id]??null;
+      // Card key includes mediaType so a multi-channel queue (e.g. POD 3)
+      // can render distinct Voice / Chat / Email tiles without DOM ID collision.
+      const key=`${pod.id}-${q.id}-${q.mediaType}`;
+      let card=document.getElementById(`card-${key}`);
+      if(!card){
+        card=document.createElement('div'); card.id=`card-${key}`; card.className=`card ${cardClass(o.waiting,ag)}`;
+        card.innerHTML=buildCard(key,q,o,ag); queuesDiv.appendChild(card);
+      } else { updateCard(key,o,ag); }
+    });
+  });
+
+  // Voice panels
+  CONFIG.VOICE_PANELS.forEach(vp => {
+    let panel=document.getElementById(vp.id);
+    if(!panel){
+      panel=document.createElement('div');
+      panel.id=vp.id; panel.className='voice-panel';
+      panel.style.setProperty('--panel-color',vp.color);
+      const hdr=document.createElement('div'); hdr.className='voice-panel-header';
+      const title=document.createElement('div'); title.className='voice-panel-title';
+      title.textContent=vp.label; hdr.appendChild(title); panel.appendChild(hdr);
+      const q={id:vp.queueId,label:'Voice Queue',mediaType:'voice'};
+      const o=obsFor(obs, vp.queueId, 'voice');
+      const ag=agents[vp.queueId]??null;
+      const key=`vp-${vp.queueId}`;
+      const card=document.createElement('div'); card.id=`card-${key}`; card.className=`card ${cardClass(o.waiting,ag)}`;
+      card.innerHTML=buildCard(key,q,o,ag); panel.appendChild(card);
+      voicePanels.appendChild(panel);
+    } else {
+      const o=obsFor(obs, vp.queueId, 'voice');
+      const ag=agents[vp.queueId]??null;
+      updateCard(`vp-${vp.queueId}`,o,ag);
+    }
+  });
+
+  firstRender=false;
+}
+
+// ── UI ──
+function setBadge(state,text){
+  const b=document.getElementById('live-badge'),dot=document.getElementById('live-dot');
+  b.className=`live-pill ${state}`; dot.className=`live-dot ${state==='live'?'pulse':''}`;
+  document.getElementById('badge-text').textContent=text;
+}
+function toast(msg,err=false){
+  const t=document.getElementById('toast'); t.textContent=msg; t.className='show'+(err?' err':'');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.className='',4000);
+}
+
+// ── SUMMARY BAND CONFIG ──
+// Map each channel to its queue IDs (from PODs only; right-panel voice queues excluded from channel summary)
+const SUMMARY_CHANNELS = {
+  voice: {
+    // POD voice queues + all 4 specialty voice panels
+    queueIds: [
+      ...CONFIG.PODS.flatMap(p => p.queues.filter(q => q.label === 'Voice Queue').map(q => q.id)),
+      ...CONFIG.VOICE_PANELS.map(vp => vp.queueId),
+    ],
+    mediaType: 'voice',
+    slTarget: 80,   // % target
+    slThreshold: 20, // answer within 20s
+  },
+  chat: {
+    queueIds: CONFIG.PODS.flatMap(p => p.queues.filter(q => q.label === 'Chat Queue').map(q => q.id)),
+    mediaType: 'message', // Genesys API uses 'message' for chat/messaging
+    slTarget: 80,
+    slThreshold: 20,
+  },
+  email: {
+    queueIds: CONFIG.PODS.flatMap(p => p.queues.filter(q => q.label === 'Email Queue').map(q => q.id)),
+    mediaType: 'email',
+    slTarget: 80,
+    slThreshold: 86400, // 24h for email
+  },
+};
+
+// ── AGGREGATES (today) — simulation-backed ──
+// Roll up cumulative "today" tallies from SIM state for a set of queue ids and
+// a media type, and synthesize a plausible service level and average wait.
+function getAggregates(queueIds, mediaType) {
+  let nOffered = 0, nAbandoned = 0, longestWaitSec = 0, activeWaiting = 0;
+  const mtMatch = (mediaType === 'chat') ? 'message' : mediaType;
+
+  queueIds.forEach(qid => {
+    // department channel state
+    const st = SIM.channels[`${qid}:${mtMatch}`];
+    if (st) {
+      nOffered += st.offered; nAbandoned += st.abandoned;
+      activeWaiting += st.waiting;
+      if (st.longestWaitSec > longestWaitSec) longestWaitSec = st.longestWaitSec;
+    }
+    // voice panel state (voice only)
+    if (mtMatch === 'voice') {
+      const p = SIM.panels[qid];
+      if (p) {
+        nOffered += p.offered; nAbandoned += p.abandoned;
+        activeWaiting += p.waiting;
+        if (p.longestWaitSec > longestWaitSec) longestWaitSec = p.longestWaitSec;
+      }
+    }
+  });
+
+  // Avg wait "today": small for voice/chat, larger for email. Derived so it
+  // stays believable and drifts with current load rather than jumping around.
+  const base = mtMatch === 'email' ? 5400000 : mtMatch === 'message' ? 45000 : 28000;
+  const avgWaitMs = Math.round(base * (0.7 + activeWaiting * 0.06 + Math.random() * 0.25));
+
+  // Service level ratio: healthy most of the time, dips when a backlog builds.
+  const answered = Math.max(0, nOffered - nAbandoned);
+  let slRatio = 0.9 - Math.min(0.5, activeWaiting * 0.04) - Math.random() * 0.08;
+  slRatio = Math.max(0.4, Math.min(0.99, slRatio));
+
+  return { nOffered, nAbandoned, tAnsweredCount: answered, avgWaitMs, slRatio };
+}
+
+// Per-queue+channel offered/abandoned map keyed `${queueId}:${mediaType}`.
+function getPerQueueAggregates() {
+  const map = {};
+  CONFIG.PODS.forEach(pod => pod.queues.forEach(q => {
+    const st = SIM.channels[`${q.id}:${q.mediaType}`];
+    if (st) map[`${q.id}:${q.mediaType}`] = { nOffered: st.offered, nAbandoned: st.abandoned };
+  }));
+  CONFIG.VOICE_PANELS.forEach(vp => {
+    const p = SIM.panels[vp.queueId];
+    if (p) map[`${vp.queueId}:voice`] = { nOffered: p.offered, nAbandoned: p.abandoned };
+  });
+  return map;
+}
+
+// ── SERVICE LEVEL ──
+// Uses oServiceLevel.ratio from Genesys (the real SL metric)
+// Falls back to tAnsweredCount / nOffered if oServiceLevel not available
+function calcSL(aggData) {
+  if (!aggData) return null;
+  if (aggData.slRatio !== null && aggData.slRatio !== undefined) {
+    return Math.round(aggData.slRatio * 100);
+  }
+  if (aggData.nOffered > 0) {
+    return Math.round((aggData.tAnsweredCount / aggData.nOffered) * 100);
+  }
+  return null;
+}
+
+// ── FORMAT SUMMARY WAIT ──
+function fmtSummaryWait(ms) {
+  if (!ms || ms < 1000) return '0:00';
+  const totalSec = Math.round(ms / 1000);
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  if (h > 0) return `${h}h ${String(m).padStart(2,'0')}m`;
+  return `${m}:${String(s).padStart(2,'0')}`;
+}
+
+// ── UPDATE SUMMARY BAND ──
+function updateSummaryBand(channel, obs, agentMap, aggData) {
+  const cfg = SUMMARY_CHANNELS[channel];
+  // Live: sum waiting across channel queues (POD queues only).
+  // Per-channel "Agents On-Queue" was removed in v2 — the Agent Status card
+  // now shows a single accurate unique On-Queue count pulled from the master
+  // queue (CARE_TEAM_MASTER_QUEUE_ID), which avoids double-counting agents
+  // joined to multiple queues.
+  // Read waiting per-channel via obsFor(). If POD 3's queueId appears in
+  // multiple SUMMARY_CHANNELS lists (because it's multi-channel), each
+  // channel's summary still only counts its own mediaType bucket.
+  let totalWaiting = 0;
+  for (const qid of cfg.queueIds) {
+    totalWaiting += obsFor(obs, qid, cfg.mediaType).waiting || 0;
+  }
+  const sl = calcSL(aggData);
+  const slPct = sl !== null ? sl : null;
+
+  // Update DOM
+  function flashUpdate(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.textContent !== String(val)) {
+      el.textContent = val;
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    }
+  }
+  flashUpdate(`sb-${channel}-waiting`, totalWaiting);
+  flashUpdate(`sb-${channel}-avgwait`, aggData ? fmtSummaryWait(aggData.avgWaitMs) : '—');
+  flashUpdate(`sb-${channel}-offered`, aggData ? aggData.nOffered : '—');
+  if (channel === 'voice') {
+    flashUpdate(`sb-${channel}-abandoned`, aggData ? (aggData.nAbandoned ?? '—') : '—');
+  }
+
+  // Singular/plural "Interaction(s) Waiting"
+  const waitLbl = document.getElementById(`sb-${channel}-waiting-lbl`);
+  if (waitLbl) waitLbl.innerHTML = totalWaiting === 1 ? 'Interaction<br>Waiting' : 'Interactions<br>Waiting';
+
+  // SL Badge
+  const badge = document.getElementById(`sb-${channel}-sl`);
+  if (badge) {
+    if (slPct === null) {
+      badge.textContent = 'SL —'; badge.className = 'summary-sl-badge sl-none';
+    } else {
+      badge.textContent = `SL ${slPct}%`;
+      badge.className = 'summary-sl-badge ' +
+        (slPct >= cfg.slTarget ? 'sl-good' : slPct >= cfg.slTarget - 15 ? 'sl-warn' : 'sl-crit');
+    }
+  }
+  // Progress bar — color thresholds: <25% red, <70% amber, >=70% green
+  const bar = document.getElementById(`sb-${channel}-bar`);
+  if (bar) {
+    const pct = Math.min(slPct ?? 0, 100);
+    bar.style.width = `${pct}%`;
+    bar.style.background = pct < 25 ? getThemeVar('--c-wait-2') : pct < 70 ? getThemeVar('--amber') : getThemeVar('--green');
+  }
+  const tgt = document.getElementById(`sb-${channel}-target`);
+  if (tgt) tgt.textContent = `Target ${cfg.slTarget}%`;
+}
+
+// ── POLL ──
+async function poll() {
+  try {
+    _ensureState();
+    if (!firstRender) _stepAll();   // advance the simulation each refresh
+    const obs=getObservations();
+    const agentMap={};
+    allQueues().forEach(q=>{ agentMap[q.id]=getAgents(q.id); });
+    render(obs,agentMap);
+    if(Object.keys(perQueueAgg).length) applyPerQueueAgg(); // re-apply cached agg after re-render
+    checkAlerts(obs,agentMap);
+    setBadge('live','LIVE');
+    startCountdown();
+    // Fetch aggregates for summary band (fire & update, non-blocking for render)
+    pollSummaryBand(obs, agentMap);
+  } catch(e) {
+    if(e.message!=='401'){ setBadge('error','ERROR'); toast(`Poll error: ${e.message}`,true); }
+  }
+}
+
+async function pollSummaryBand(obs, agentMap) {
+  try {
+    const [voiceAgg, chatAgg, emailAgg, pqAgg] = await Promise.all([
+      getAggregates(SUMMARY_CHANNELS.voice.queueIds, 'voice'),
+      getAggregates(SUMMARY_CHANNELS.chat.queueIds,  'chat'),
+      getAggregates(SUMMARY_CHANNELS.email.queueIds, 'email'),
+      getPerQueueAggregates(),
+    ]);
+    updateSummaryBand('voice', obs, agentMap, voiceAgg);
+    updateSummaryBand('chat',  obs, agentMap, chatAgg);
+    updateSummaryBand('email', obs, agentMap, emailAgg);
+    perQueueAgg = pqAgg;
+    applyPerQueueAgg();
+  } catch(e) {
+    updateSummaryBand('voice', obs, agentMap, null);
+    updateSummaryBand('chat',  obs, agentMap, null);
+    updateSummaryBand('email', obs, agentMap, null);
+    console.warn('Summary band aggregate fetch failed:', e.message);
+  }
+}
+
+// Push per-queue offered/abandoned into all rendered cards.
+// perQueueAgg is keyed by `${queueId}:${mediaType}` so POD 3's three tiles
+// (voice/chat/email all pointing at the same queueId) each get their own row.
+function applyPerQueueAgg() {
+  // POD queues
+  CONFIG.PODS.forEach(pod => {
+    pod.queues.forEach(q => {
+      const key = `${pod.id}-${q.id}-${q.mediaType}`;
+      const agg = perQueueAgg[`${q.id}:${q.mediaType}`] || { nOffered: 0, nAbandoned: 0 };
+      const isVoice = q.mediaType === 'voice';
+      updateCardAgg(key, agg, isVoice);
+    });
+  });
+  // Voice panels
+  CONFIG.VOICE_PANELS.forEach(vp => {
+    const key = `vp-${vp.queueId}`;
+    const agg = perQueueAgg[`${vp.queueId}:voice`] || { nOffered: 0, nAbandoned: 0 };
+    updateCardAgg(key, agg, true);
+  });
+}
+
+function updateCardAgg(key, agg, isVoice) {
+  const offEl = document.getElementById(`sv-off-${key}`);
+  const offU  = document.getElementById(`su-off-${key}`);
+  if (offEl) {
+    if (offEl.textContent !== String(agg.nOffered)) {
+      offEl.textContent = agg.nOffered;
+      offEl.classList.remove('flash'); void offEl.offsetWidth; offEl.classList.add('flash');
+    }
+  }
+  if (isVoice) {
+    const abEl = document.getElementById(`sv-abn-${key}`);
+    const abU  = document.getElementById(`su-abn-${key}`);
+    if (abEl) {
+      if (abEl.textContent !== String(agg.nAbandoned)) {
+        abEl.textContent = agg.nAbandoned;
+        abEl.classList.remove('flash'); void abEl.offsetWidth; abEl.classList.add('flash');
+      }
+    }
+  }
+}
+
+// ── AGENT STATUS RENDER ──
+// Off-queue presence legend is split across two columns:
+//   col A: Available, Away, Break, Meal
+//   col B: Training, Meeting, Busy
+function initAgentLegend() {
+  const colA = document.getElementById('agent-legend-col-a');
+  const colB = document.getElementById('agent-legend-col-b');
+  if (!colA || !colB) return;
+  if (colA.childElementCount && colB.childElementCount) return;
+
+  const keysA = ['Available', 'Away', 'Break', 'Meal'];
+  const keysB = ['Training', 'Meeting', 'Busy'];
+  const byKey = Object.fromEntries(AGENT_STATUSES.map(s => [s.key, s]));
+
+  const renderItems = keys => keys
+    .map(k => byKey[k])
+    .filter(Boolean)
+    .map(s => `
+      <div class="agent-stat-item">
+        <span class="swatch" style="background:${s.color};color:${s.color}"></span>
+        <span class="name">${s.key}</span>
+        <span class="count" id="agent-count-${s.key}">—</span>
+      </div>
+    `).join('');
+
+  colA.innerHTML = renderItems(keysA);
+  colB.innerHTML = renderItems(keysB);
+}
+
+function _setCount(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const s = String(val);
+  if (el.textContent === s) return;
+  el.textContent = s;
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+}
+
+function renderAgentStatus(data) {
+  initAgentLegend();
+  if (!data) return; // leave last values on-screen if a single fetch failed
+  const { counts, onQueue, offQueue, routing } = data;
+
+  // Pills (totals)
+  _setCount('agent-onqueue-count',  onQueue);
+  _setCount('agent-offqueue-count', offQueue);
+
+  // Routing breakdown (on-queue sub-states)
+  _setCount('agent-routing-idle',          routing?.idle          || 0);
+  _setCount('agent-routing-notresp',       routing?.notResponding || 0);
+  _setCount('agent-routing-interacting',   routing?.interacting   || 0);
+  _setCount('agent-routing-communicating', routing?.communicating || 0);
+
+  // Legend counts (off-queue presence breakdown)
+  AGENT_STATUSES.forEach(s => {
+    _setCount('agent-count-' + s.key, counts[s.key] || 0);
+  });
+}
+
+// Wrap poll() so the master-queue fetch runs in parallel with the existing
+// queue observations / aggregates. A slow presence call never blocks the main
+// render, and vice versa.
+const _origPoll = poll;
+poll = async function() {
+  await _origPoll();
+  try { renderAgentStatus(getCareTeamAgents()); }
+  catch (e) { console.warn('[agents] render failed', e); }
+};
+
+initAgentLegend();
+
+// ── BOOT ──
+// Demo build: no real authentication. Show the mock sign-in, and the feed
+// starts once the user submits any credentials (see doLogin / startSim).
+function startSim(){
+  _ensureState();
+  poll();
+  if (timer) clearInterval(timer);
+  timer = setInterval(poll, CONFIG.REFRESH_MS);
+}
+(function boot(){
+  showAuth();
+})();
+
+// ── THEME TOGGLE ──
+(function initTheme() {
+  const saved = localStorage.getItem('nsc-theme') || 'dark';
+  applyTheme(saved);
+})();
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('nsc-theme', theme);
+  const lbl = document.getElementById('theme-label');
+  if (lbl) lbl.textContent = theme === 'dark' ? 'Light' : 'Dark';
+  // Re-render stat colors if data already loaded
+  if (!firstRender) {
+    document.querySelectorAll('[id^="sv-wait-"]').forEach(el => {
+      const key = el.id.replace('sv-wait-','');
+      const val = parseInt(el.textContent) || 0;
+      el.style.color = waitColor(val);
+    });
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+</script>
+</body>
+</html>
